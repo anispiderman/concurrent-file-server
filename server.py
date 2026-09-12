@@ -9,10 +9,8 @@ from pathlib import Path
 
 MAX_FRAME = 64 * 1024
 
-
 def send_frame(sock: socket.socket, payload: bytes) -> None:
     sock.sendall(struct.pack("!I", len(payload)) + payload)
-
 
 def recv_exact(sock: socket.socket, size: int) -> bytes:
     chunks = bytearray()
@@ -23,13 +21,11 @@ def recv_exact(sock: socket.socket, size: int) -> bytes:
         chunks.extend(chunk)
     return bytes(chunks)
 
-
 def recv_frame(sock: socket.socket) -> bytes:
     size = struct.unpack("!I", recv_exact(sock, 4))[0]
     if size > MAX_FRAME:
         raise ValueError("frame exceeds limit")
     return recv_exact(sock, size)
-
 
 class FileServer:
     def __init__(self, host: str, port: int, root: Path, max_clients: int = 8):
@@ -77,7 +73,6 @@ class FileServer:
             while True:
                 conn, _ = listener.accept()
                 threading.Thread(target=self.handle, args=(conn,), daemon=True).start()
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

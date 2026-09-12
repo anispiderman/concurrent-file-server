@@ -4,14 +4,11 @@ import argparse
 import json
 import socket
 from pathlib import Path
-
 from server import recv_frame, send_frame
-
 
 def request(sock: socket.socket, command: str, **values: str) -> dict:
     send_frame(sock, json.dumps({"command": command, **values}).encode())
     return json.loads(recv_frame(sock))
-
 
 def main(host: str, port: int) -> None:
     with socket.create_connection((host, port)) as sock:
@@ -31,7 +28,6 @@ def main(host: str, port: int) -> None:
             elif action == "quit":
                 request(sock, "quit")
                 return
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
