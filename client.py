@@ -23,8 +23,9 @@ def main(host: str, port: int) -> None:
                 name = input("file name: ").strip()
                 response = request(sock, "get", name=name)
                 if response.get("ok"):
-                    Path(name).name and Path(Path(name).name).write_bytes(recv_frame(sock))
-                    print(f"saved {Path(name).name} ({response['size']} bytes)")
+                    output_name = Path(name).name
+                    Path(output_name).write_bytes(recv_frame(sock))
+                    print(f"saved {output_name} ({response['size']} bytes)")
                 else:
                     print(response["error"])
             elif action == "quit":
