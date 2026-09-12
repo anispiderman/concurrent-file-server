@@ -31,7 +31,7 @@ python3 client.py
 python3 -m unittest discover -s tests -v
 ```
 
-This is a clean portfolio edition based on concepts explored in a completed networking project. It does not reuse the shared repository's history and does not claim other contributors' work.
+I developed this project while learning socket programming, application-level protocols, and concurrent server design.
 
 ## Limitations
 
